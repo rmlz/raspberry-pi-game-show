@@ -2,10 +2,11 @@ import constants as c
 
 
 class Screen:
-    def __init__(self, window_title, window, width=c.WINDOW_WIDTH, height=c.WINDOW_HEIGHT):
+    def __init__(self, window_title, window, pygame, width=c.WINDOW_WIDTH, height=c.WINDOW_HEIGHT):
         self.size = self.width, self.height = width, height
         self.window_title = window_title
         self.window = window
+        self.pygame = pygame
 
     def on_init(self):
         pass

@@ -1,22 +1,19 @@
-import pygame
-
 from Screens.Screen import Screen
+from Screens.ScreenQuestions import ScreenQuestions
 import constants as c
 
 
 class SelectSubjectMenu(Screen):
-    def __init__(self, window):
-        super().__init__("Seleção de Matérias", window)
+    def __init__(self, window, pygame):
+        super().__init__("Seleção de Matérias", window, pygame)
         self.window = window
         self.subjects = ["Biologia"]
-        self.font = pygame.font.Font(None, 36)
-
-    def open_subject_screen(self, subject):
-        # Aqui você pode adicionar lógica para abrir uma nova tela para a disciplina selecionada
-        # Por enquanto, vamos apenas imprimir uma mensagem para demonstrar a funcionalidade
-        print(f"Abrindo tela da disciplina de {subject}")
+        self.font = self.pygame.font.Font(None, 36)
+        self.next_screen = None
 
     def on_event(self, event):
+        if self.next_screen:
+            return self.next_screen
         return self
 
     def on_loop(self):
@@ -34,16 +31,14 @@ class SelectSubjectMenu(Screen):
         button_padding = 20
         y = 200
         for idx, subject in enumerate(self.subjects):
-            rect = pygame.Rect(self.width // 2 - button_width // 2, y, button_width, button_height)
-            if rect.collidepoint(pygame.mouse.get_pos()):
-                pygame.draw.rect(self.window, c.BUTTON_COLOR_HOVER, rect)
-                if pygame.mouse.get_pressed()[0]:
-                    # Aqui você pode definir a ação correspondente a cada disciplina
-                    print(f"Você clicou em {subject}")
-                    # Por exemplo, abrir uma nova tela para a disciplina selecionada
-                    self.open_subject_screen(subject)
+            rect = self.pygame.Rect(self.width // 2 - button_width // 2, y, button_width, button_height)
+            if rect.collidepoint(self.pygame.mouse.get_pos()):
+                self.pygame.draw.rect(self.window, c.BUTTON_COLOR_HOVER, rect)
+                if self.pygame.mouse.get_pressed()[0]:
+                    self.next_screen = ScreenQuestions(self.window, "Quantas pessoas verão isso?", self.pygame)
+
             else:
-                pygame.draw.rect(self.window, c.BUTTON_COLOR_NORMAL, rect)
+                self.pygame.draw.rect(self.window, c.BUTTON_COLOR_NORMAL, rect)
             self.draw_text(subject, c.BLACK, self.width // 2, y + button_height // 2)
             y += button_height + button_padding
 

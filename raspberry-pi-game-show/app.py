@@ -19,12 +19,13 @@ class App:
         self.window = pygame.display.set_mode((self.width, self.height))
         pygame.display.set_caption(self.window_title)
         self.font = pygame.font.Font(None, 36)
+        self.current_screen = SelectSubjectMenu(self.window, pygame)
         self._running = True
 
     # if event.type == pygame.QUIT:
     # self._running = False
     def on_event(self, event):
-        pass
+        self.current_screen = self.current_screen.on_event(event)
 
     def on_loop(self):
         pass
@@ -36,24 +37,20 @@ class App:
         pass
 
     def on_execute(self):
-        pygame.init()
-        self.window = pygame.display.set_mode((self.width, self.height))
-        pygame.display.set_caption(self.window_title)
-
-        self.current_screen = SelectSubjectMenu(self.window)
+        if not self._running:
+            self.on_init()
 
         clock = pygame.time.Clock()
 
-        while True:
+        while self._running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
-                self.current_screen = self.current_screen.on_event(event)
+                self.on_event(event)
 
             self.on_render()
 
-            # pygame.display.update()
             pygame.display.flip()
             clock.tick(60)
 
