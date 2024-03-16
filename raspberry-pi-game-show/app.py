@@ -14,6 +14,7 @@ class App:
         self.font = None
         self._running = False
 
+
     def on_init(self):
         pygame.init()
         self.window = pygame.display.set_mode((self.width, self.height))

@@ -1,19 +1,24 @@
+import Question
 from Screens.Screen import Screen
-from Screens.ScreenQuestions import ScreenQuestions
+from Screens.ScreenQuestionLottery import ScreenQuestionLottery
 import constants as c
+from Question import QuestionLottery
+import questions as q
 
 
 class SelectSubjectMenu(Screen):
     def __init__(self, window, pygame):
         super().__init__("Seleção de Matérias", window, pygame)
         self.window = window
-        self.subjects = ["Biologia"]
+        self.subjects = q.subjects
         self.font = self.pygame.font.Font(None, 36)
         self.next_screen = None
 
     def on_event(self, event):
         if self.next_screen:
-            return self.next_screen
+            new_screen = self.next_screen
+            self.next_screen = None
+            return new_screen
         return self
 
     def on_loop(self):
@@ -35,7 +40,8 @@ class SelectSubjectMenu(Screen):
             if rect.collidepoint(self.pygame.mouse.get_pos()):
                 self.pygame.draw.rect(self.window, c.BUTTON_COLOR_HOVER, rect)
                 if self.pygame.mouse.get_pressed()[0]:
-                    self.next_screen = ScreenQuestions(self.window, "Quantas pessoas verão isso?", self.pygame)
+                    lottery = QuestionLottery(q.get_questions(subject))
+                    self.next_screen = ScreenQuestionLottery(self.window, self.pygame, lottery, self)
 
             else:
                 self.pygame.draw.rect(self.window, c.BUTTON_COLOR_NORMAL, rect)
