@@ -1,13 +1,8 @@
-# Read Me Template
+# Raspberry Game Show
 
-![Project Image](project-image-url)
-
-> This is a ReadMe template to help save you time and effort.
-
----
+[//]: # (![Project Image]&#40;project-image-url&#41;)
 
 ### Table of Contents
-You're sections headers will be used to reference location of destination.
 
 - [Description](#description)
 - [How To Use](#how-to-use)
@@ -19,12 +14,11 @@ You're sections headers will be used to reference location of destination.
 
 ## Description
 
-Creating ReadMe's for your Github repository can be tedious.  I hope this template can save you time and effort as well as provide you with some consistency across your projects.
-
+This project is a answers and questions gameshow made with Pygame and Raspberry Pi. It is a fun way to learn and test your knowledge on a variety of topics.
+The game is based on a popular brazilian show name Passa Ou Repassa.
 #### Technologies
-
-- Technology 1
-- Technology 2
+- Python 3.11
+- Pygame
 
 [Back To The Top](#read-me-template)
 
@@ -33,22 +27,60 @@ Creating ReadMe's for your Github repository can be tedious.  I hope this templa
 ## How To Use
 
 #### Installation
+If you are not regular with Python projects, you can follow the steps below to install the project on your Raspberry Pi.
 
-
-
-#### API Reference
-
+1. Clone the project
 ```html
-    <p>dummy code</p>
+    git clone git@github.com:rmlz/raspberry-pi-game-show.git
 ```
-[Back To The Top](#read-me-template)
 
----
+2. Install the dependencies
+```html
+    pip install -r requirements.txt
+```
 
-## References
-[Back To The Top](#read-me-template)
+3. Run the game
+```html
+    python3 app.py
+```
 
----
+This simple steps will install the project on your Raspberry Pi and you will be able to play the game.
+
+#### Adding Questions
+The game has only a few questions as examples. You can add more questions to the game by adding them to the questions.py file.
+```python
+# before adding the questions, you need to add the subject to the subjects list.
+subjects = [
+    "Biologia"
+]
+
+# the questions array is where you will add the questions
+questions = [
+    Question("Biologia", "Qual a principal característica dos poríferos?", "Presença de poros"),
+    Question("Biologia", "O que é dimorfismo sexual?", "Diferenças entre macho e fêmea")
+]
+
+# the Question class has the following parameters: subject, question and answer.
+# add as many questions as you would like. Remember to separete them with a comma.
+```
+
+#### Game rules
+The game has a few simple rules:
+1. One player must be the game show presenter. The presenter will be responsible for reading the questions and answers 
+and must be the only player to interact with the monitor. No other player should be able to see the questions and answers.
+2. Divide the other players into the red team and the blue team.
+3. Every round the presenter will ask a question. The players must press the button to answer it.
+4. If a player press the button before the presenter read the question, the presenter must ask the player to give an 
+answer even though the question was not fully read.
+5. If the answer is correct, the player's team will score a point. If the answer is wrong, the other team will have the
+   1. A fun way to play the game is by crafting chantily pies in styrofoam plates. If the answer is correct, the player
+   rub one of them in the other player's face. If the answer is wrong, the player will have the pie rubbed in their face.
+
+#### Game controls
+The game has only two buttons. One for the red team and one for the blue team. 
+For this project, I have crafted a simple controller using a zero delay usb controller board and two buttons.
+
+>Once I have the schematics done, I will add it to the project.
 
 ## License
 
@@ -80,7 +112,6 @@ SOFTWARE.
 
 ## Author Info
 
-- Twitter - [@jamesqquick](https://twitter.com/jamesqquick)
-- Website - [James Q Quick](https://jamesqquick.com)
+- Linkedin - [Ramon Barros](https://www.linkedin.com/in/ramon-pinto-de-barros-a4527a72/)
 
 [Back To The Top](#read-me-template)
